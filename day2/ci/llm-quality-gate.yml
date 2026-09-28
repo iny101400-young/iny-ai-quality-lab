@@ -1,0 +1,21 @@
+# LLM 품질 게이트 예시 (2일차 6교시)
+#
+# 사용법: 팀 저장소의 .github/workflows/ 폴더에 복사하고,
+# 저장소 Settings > Secrets and variables > Actions 에 OPENAI_API_KEY를 등록합니다.
+# PR마다 골든셋 테스트를 실행하고, 실패하면 PR에 실패 표시가 됩니다.
+
+name: llm-quality-gate
+on: [pull_request]
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: 골든셋 회귀 테스트
+        run: npx promptfoo@latest eval -c promptfooconfig.yaml --no-cache
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
