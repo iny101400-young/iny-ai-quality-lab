@@ -18,6 +18,11 @@
 | 2일차 3교시 | [실습②] AI 응답 품질 평가 (DeepEval) | [열기](https://colab.research.google.com/github/leejaehee1/ai-quality-lab/blob/main/day2/notebooks/02_deepeval_response_quality.ipynb) |
 | 2일차 4교시 | [실습③] 응답시간·비용·견고성 | [열기](https://colab.research.google.com/github/leejaehee1/ai-quality-lab/blob/main/day2/notebooks/03_latency_cost_robustness.ipynb) |
 
+## 강의 슬라이드
+
+- [1일차. AI 품질검증의 이해 (PDF)](slides/day1-ai-quality-understanding.pdf)
+- [2일차. AI 어플리케이션 품질검증 프레임워크 실습 (PDF)](slides/day2-ai-app-quality-framework-lab.pdf)
+
 ## 실습 대상: 두 가지 경로
 
 - **경로 A (팀 서비스)**: 팀 서비스를 HTTP API로 호출할 수 있으면, 노트북의 `SERVICE_URL`과 [`path-a-service`](day2/promptfoo/path-a-service/promptfooconfig.yaml) 설정을 팀 API에 맞게 고칩니다.
@@ -41,7 +46,8 @@ ai-quality-lab/
 │   ├── redteam/                        # 공격 카드, 결함 보고서 템플릿
 │   ├── ci/llm-quality-gate.yml         # GitHub Actions 품질 게이트 예시
 │   └── report-template.md              # 품질검증 보고서 템플릿
-└── sample-service/                     # 공통 예제 챗봇 (FastAPI)
+├── sample-service/                     # 공통 예제 챗봇 (FastAPI)
+└── slides/                             # 1·2일차 강의 슬라이드 PDF
 ```
 
 ## 결과물을 포트폴리오로
