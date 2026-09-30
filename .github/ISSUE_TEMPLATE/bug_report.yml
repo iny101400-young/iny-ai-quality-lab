@@ -1,0 +1,88 @@
+name: 버그 리포트
+description: 발견한 결함을 재현 가능하게 보고합니다 (2일차 7교시)
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **누가 읽어도 같은 결함을 재현할 수 있게** 작성합니다. 추측과 사실을 구분해 적습니다.
+
+  - type: input
+    id: summary
+    attributes:
+      label: 요약
+      description: 무엇이, 어떤 조건에서, 어떻게 잘못되는지 한 문장으로
+      placeholder: "is_eligible()이 만 18세를 지원 대상으로 판정함"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: 심각도 (결함이 주는 영향)
+      options:
+        - "치명: 서비스 중단, 데이터 손상, 법적 문제"
+        - "높음: 핵심 기능이 틀린 결과를 냄"
+        - "보통: 기능은 되지만 일부 조건에서 틀림"
+        - "낮음: 표현·형식 문제"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 우선순위 (얼마나 빨리 고쳐야 하나)
+      options:
+        - "P1: 즉시"
+        - "P2: 이번 배포 전"
+        - "P3: 다음 배포"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 재현 절차
+      description: 번호를 붙여 차례대로. 입력값을 정확히 적습니다.
+      placeholder: |
+        1. day2 폴더에서 python -c "from mlqa.preprocess import is_eligible; print(is_eligible(18, 12, False))" 실행
+        2. 출력을 확인
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 기대 결과
+      description: 요구사항·명세에 따르면 어떻게 되어야 하나
+      placeholder: "False (요구사항: 만 19세 이상 34세 이하)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 실제 결과
+      description: 실제로 일어난 일. 오류 메시지, 테스트 실패 로그를 붙여 넣습니다.
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 근거 (실패한 테스트, CI 실행 링크)
+      placeholder: "tests/test_boundaries.py::test_age_boundaries[18-False] 실패, Actions 실행 #12"
+
+  - type: textarea
+    id: cause
+    attributes:
+      label: 원인 추정과 수정 제안 (선택)
+      placeholder: "preprocess.py 16행의 하한이 18로 되어 있음. 19로 수정 제안"
+
+  - type: input
+    id: env
+    attributes:
+      label: 환경
+      placeholder: "Python 3.12, scikit-learn 1.9, 커밋 a1b2c3d"

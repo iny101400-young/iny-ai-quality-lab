@@ -3,7 +3,7 @@
 **AI SW·어플리케이션 품질검증 특강** 실습 자료입니다.
 
 - **1일차 · AI 품질검증의 이해**: 소프트웨어 테스팅 기초, 분류·회귀 모델 평가 지표, 과적합·데이터 편향·강건성, 데이터 품질 관리
-- **2일차 · AI 어플리케이션 품질검증 프레임워크 실습**: unittest·PyTest, 교차 검증과 성능 리포트 자동 생성, GitHub Actions CI, 이슈 트래커 버그 리포트 (준비 중)
+- **2일차 · AI 어플리케이션 품질검증 프레임워크 실습**: unittest·PyTest, 교차 검증과 성능 리포트 자동 생성, GitHub Actions CI, 이슈 트래커 버그 리포트 → [2일차 안내](day2/README.md)
 
 ## 시작하기
 
@@ -27,6 +27,15 @@
 
 **1일차 과제 템플릿**: [데이터 품질 검수 기준서](day1/templates/data-quality-checklist.md)
 
+## 2일차 실습
+
+2일차는 이 저장소를 **fork**해서 진행합니다. 순서와 교시별 과제는 [2일차 안내](day2/README.md)를 보세요.
+
+| 교시 | 주제 | Colab |
+| --- | --- | --- |
+| 1~3, 5교시 | unittest·PyTest·커버리지·성능 리포트 실행 | [열기](https://colab.research.google.com/github/leejaehee1/ai-quality-lab/blob/main/day2/notebooks/01_testing_in_colab.ipynb) |
+| 4교시 | 교차 검증 | [열기](https://colab.research.google.com/github/leejaehee1/ai-quality-lab/blob/main/day2/notebooks/02_cross_validation.ipynb) |
+
 ## 폴더 구성
 
 ```text
@@ -34,7 +43,8 @@ ai-quality-lab/
 ├── day1/
 │   ├── notebooks/        # 1일차 Colab 노트북 5개
 │   └── templates/        # 데이터 품질 검수 기준서 양식
-├── day2/                 # 2일차 실습 (준비 중)
+├── day2/                 # 2일차 실습: mlqa 패키지, 테스트, 노트북
+├── .github/              # CI 워크플로(day2-ci.yml), 버그 리포트 이슈 양식
 ├── slides/               # 강의 슬라이드 PDF
 └── appendix/
     └── llm-service/      # [부록] 생성형 AI(LLM) 서비스 품질검증 실습
