@@ -11,6 +11,10 @@
 2. 아래 표의 **열기** 링크로 노트북을 열고, `파일 > Drive에 사본 저장`을 누릅니다.
 3. 위에서부터 차례로 실행합니다 (`Shift + Enter`). 필요한 라이브러리는 Colab에 기본으로 들어 있고, 데이터는 다운로드가 필요 없습니다.
 
+## 강의 슬라이드
+
+- [1일차. AI 품질검증의 이해 (PDF)](slides/day1-ai-quality-understanding.pdf)
+
 ## 1일차 노트북
 
 | 교시 | 주제 | Colab |
@@ -31,6 +35,7 @@ ai-quality-lab/
 │   ├── notebooks/        # 1일차 Colab 노트북 5개
 │   └── templates/        # 데이터 품질 검수 기준서 양식
 ├── day2/                 # 2일차 실습 (준비 중)
+├── slides/               # 강의 슬라이드 PDF
 └── appendix/
     └── llm-service/      # [부록] 생성형 AI(LLM) 서비스 품질검증 실습
 ```
