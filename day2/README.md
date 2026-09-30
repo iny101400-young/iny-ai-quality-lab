@@ -23,6 +23,7 @@ day2/
 │   ├── evaluate.py       # 지표 계산, 교차 검증
 │   └── report.py         # 성능 리포트 자동 생성
 ├── tests/                # 제공된 테스트 (unittest 1개 파일 + PyTest)
+├── exercises/            # 1~3교시 빈칸 채우기 과제 (채운 뒤 tests/로 옮김)
 ├── notebooks/            # Colab 노트북
 ├── reports/              # 리포트 출력 폴더 (자동 생성)
 ├── requirements.txt
@@ -33,14 +34,16 @@ day2/
 
 | 교시 | 주제 | 할 일 |
 | --- | --- | --- |
-| 1 | unittest | `tests/test_preprocess_unittest.py`를 읽고, `TestIsEligible`에 테스트 메서드 2개를 추가한다 (예: 거주 기간 부족, 취업 상태) |
-| 2 | PyTest | `tests/test_my_checks.py`를 새로 만들고 `parametrize`로 나이의 **3값 경계값** 테스트를 작성한다. 커버리지를 측정해 본다 |
-| 3 | ML 코드 테스트 | 같은 파일에 ① `impute_median()`이 **학습 데이터의 중앙값만** 쓰는지 확인하는 테스트 ② `compute_metrics()`의 정밀도를 **손으로 계산한 값**과 비교하는 테스트를 추가한다 |
+| 1 | unittest | `exercises/test_exercise1_unittest.py`의 빈칸을 채워 `tests/`로 옮긴다 (거주 기간 부족, 취업 상태, 잘못된 나이) |
+| 2 | PyTest | `exercises/test_exercise2_boundaries.py`의 빈칸에 나이의 **3값 경계값** 기대 결과를 채워 `tests/`로 옮긴다. 커버리지를 측정해 본다 |
+| 3 | ML 코드 테스트 | `exercises/test_exercise3_ml_checks.py`의 빈칸을 **손으로 계산해** 채운다. ① 결측 대체값은 학습 데이터로만 계산되는가 ② 정밀도가 손 계산과 같은가 |
 | 4 | 교차 검증 | [02_cross_validation.ipynb](https://colab.research.google.com/github/leejaehee1/ai-quality-lab/blob/main/day2/notebooks/02_cross_validation.ipynb)로 분할의 흔들림, StratifiedKFold, 평균 ± 표준편차를 확인한다 |
 | 5 | 성능 리포트 | 리포트를 생성하고 **숫자가 서로 맞는지** 검토한다. 이상한 점을 메모한다 |
 | 6 | CI | 추가한 테스트를 커밋해 Actions에서 **실패**하는 것을 확인한다. 실행 요약에서 리포트를 본다 |
 | 7 | 버그 리포트 | 찾은 결함마다 **Issues → New issue → 버그 리포트** 양식으로 이슈를 등록한다. 결함을 고치는 PR을 만들고 본문에 `Fixes #이슈번호`를 적는다. CI가 통과하면 병합해 이슈가 자동으로 닫히는지 확인한다 |
 | 8 | 발표 | 찾은 결함, 추가한 테스트, CI 결과, 이슈 링크를 발표한다 |
+
+> 💡 **빈칸 채우기 과제**: `exercises/`의 파일은 빈칸(`___`)을 **모두 채운 뒤** `tests/`로 옮기세요. 빈칸이 남은 채로 옮기면 `NameError`가 나고 CI 전체가 실패합니다. 코딩이 처음이라면 짝과 함께, 막히면 강사에게 힌트를 요청하세요.
 
 > ⚠️ **PR을 만들 때 base repository를 꼭 확인하세요.** fork한 저장소에서 PR을 만들면 받는 쪽이 원본 저장소(`leejaehee1/ai-quality-lab`)로 기본 선택됩니다. 반드시 **내 fork의 `main`**으로 바꾼 뒤 PR을 만드세요. 원본으로 보내면 다른 수강생에게 답이 공개됩니다.
 
