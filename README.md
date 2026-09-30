@@ -14,6 +14,7 @@
 ## 강의 슬라이드
 
 - [1일차. AI 품질검증의 이해 (PDF)](slides/day1-ai-quality-understanding.pdf)
+- [2일차. AI 어플리케이션 품질검증 프레임워크 실습 (PDF)](slides/day2-ai-app-quality-framework-lab.pdf)
 
 ## 1일차 노트북
 
