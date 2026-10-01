@@ -1,5 +1,7 @@
 """모델 테스트 (2일차 3교시). 1일차 3~6교시의 기준을 자동으로 확인한다."""
 
+import os
+
 import numpy as np
 from sklearn.dummy import DummyClassifier
 from sklearn.metrics import recall_score
@@ -8,8 +10,9 @@ from mlqa.evaluate import cross_validate_model
 from mlqa.model import POSITIVE_LABEL, build_model
 
 # 성능 기준 (품질 게이트). 팀이 합의해 정하는 값이다.
-MIN_CV_RECALL = 0.90
-MAX_NOISE_DROP = 0.02
+# 노트북의 슬라이더로 바꿔 볼 수 있도록 환경 변수 값을 먼저 읽는다.
+MIN_CV_RECALL = float(os.environ.get("MIN_CV_RECALL", 0.90))
+MAX_NOISE_DROP = float(os.environ.get("MAX_NOISE_DROP", 0.02))
 
 
 def test_prediction_shape_and_labels(trained_model, data):

@@ -1,53 +1,57 @@
 # 2일차 · AI 어플리케이션 품질검증 프레임워크 실습
 
-이 폴더에는 작은 ML 프로젝트(`mlqa` 패키지)가 들어 있습니다. 유방암 진단 데이터로 **악성 종양을 찾는 모델**입니다. 오늘은 이 프로젝트에 **테스트, 교차 검증, 성능 리포트, CI, 버그 리포트**를 붙여 품질을 검증합니다.
+오늘은 **코드를 직접 고치지 않습니다.** PM으로서 품질검증 도구를 **다루고, 결과를 읽고, 판단하는** 연습을 합니다.
 
-> 이 코드에는 **결함이 몇 개 숨어 있습니다.** 제공된 테스트는 모두 통과하고 커버리지도 98%입니다. 테스트를 직접 추가해서 결함을 찾아내는 것이 오늘의 목표입니다.
+이 폴더에는 작은 AI 서비스(`mlqa` 패키지)가 들어 있습니다. 청년 지원금 대상 판정 규칙과, 유방암 진단 데이터로 **악성 종양을 찾는 모델**입니다.
 
-## 0. 시작하기 (1교시)
+> 이 서비스에는 **결함이 몇 개 숨어 있습니다.** 개발자가 만든 자동 테스트는 모두 통과합니다. 테스트 케이스를 추가하고, 손 계산과 도구 결과를 비교해서 결함을 찾아내는 것이 오늘의 목표입니다.
 
-1. 이 저장소 오른쪽 위 **Fork**를 눌러 내 계정으로 복사합니다.
-2. 내 저장소의 **Actions** 탭에서 워크플로 실행을 허용합니다 ("I understand my workflows, go ahead and enable them").
-3. 내 저장소의 **Settings → General → Features**에서 **Issues**를 체크합니다. fork한 저장소는 이슈 기능이 기본으로 꺼져 있습니다.
-4. 코드를 읽고 고칠 때는 내 저장소 화면에서 **`.` 키**를 누릅니다 (웹 편집기 github.dev가 열림).
-5. 테스트를 미리 돌려 보고 싶으면 Colab에서 [01_testing_in_colab.ipynb](https://colab.research.google.com/github/leejaehee1/ai-quality-lab/blob/main/day2/notebooks/01_testing_in_colab.ipynb)를 열고, 첫 셀의 `GITHUB_USER`를 내 아이디로 바꿉니다.
+## 시작하기
+
+1. Google 계정으로 Colab에 로그인합니다.
+2. 아래 표의 노트북을 열고 위에서부터 ▶ 버튼을 누릅니다. 코드는 숨겨져 있고, **오른쪽 입력 칸(슬라이더·목록)만 바꾸면** 됩니다.
+3. 7교시 버그 리포트는 [ai-quality-bug-bash](https://github.com/leejaehee1/ai-quality-bug-bash) 저장소에 이슈로 등록합니다. **GitHub 계정**이 필요합니다.
+
+| 노트북 | 교시 | Colab |
+| --- | --- | --- |
+| 01 코드 없이 테스트 돌려 보기 | 1·2·3·5교시 | [열기](https://colab.research.google.com/github/leejaehee1/ai-quality-lab/blob/main/day2/notebooks/01_testing_in_colab.ipynb) |
+| 02 교차 검증 | 4교시 | [열기](https://colab.research.google.com/github/leejaehee1/ai-quality-lab/blob/main/day2/notebooks/02_cross_validation.ipynb) |
+
+## 교시별 활동
+
+| 교시 | 주제 | 할 일 |
+| --- | --- | --- |
+| 1 | 자동 테스트 (unittest·PyTest) | 자동 테스트를 실행하고 결과표(✅/❌)를 읽는다. "모두 통과 = 결함 없음"인지 토론한다 |
+| 2 | 테스트 케이스 설계 | 서비스를 직접 써 보고, **테스트 케이스 표**(`test_cases/eligibility_cases.csv`)에 경계값 행을 추가해 결함을 찾는다 |
+| 3 | AI 결과 검증 | 작은 예제를 **손으로 계산**해 도구 결과와 비교한다. **품질 게이트** 기준값을 슬라이더로 정해 본다 |
+| 4 | 교차 검증 | 노트북 02로 분할의 흔들림, 평균 ± 표준편차를 확인하고 배포 후보 모델을 고른다 |
+| 5 | 성능 리포트 | 리포트를 버튼 한 번으로 만들고 숫자가 서로 맞는지 검토한다. [리포트 개선안 양식](templates/report_redesign.md)을 채운다 |
+| 6 | CI (GitHub Actions) | 강사 시연: 테스트 케이스 한 줄을 올리면 자동으로 테스트가 돌고 ❌ → 고친 뒤 ✅. [Actions 화면](https://github.com/leejaehee1/ai-quality-lab/actions)을 직접 읽어 본다 |
+| 7 | 버그 리포트 | [ai-quality-bug-bash](https://github.com/leejaehee1/ai-quality-bug-bash)에서 화면 결함을 찾고, 오전에 찾은 결함과 함께 이슈로 등록한다 |
+| 8 | 발표·정리 | 팀별로 가장 심각한 결함과 이유, 정한 품질 게이트를 발표한다 |
 
 ## 폴더 구성
 
 ```text
 day2/
-├── src/mlqa/
-│   ├── preprocess.py     # 대상 판정 is_eligible(), 결측 대체 impute_median()
-│   ├── data_checks.py    # 결측률, 범위, 범주값, 중복, 분할 누수 검사
-│   ├── model.py          # 데이터 불러오기, 분할, 모델(Pipeline)
-│   ├── evaluate.py       # 지표 계산, 교차 검증
-│   └── report.py         # 성능 리포트 자동 생성
-├── tests/                # 제공된 테스트 (unittest 1개 파일 + PyTest)
-├── exercises/            # 1~3교시 빈칸 채우기 과제 (채운 뒤 tests/로 옮김)
-├── notebooks/            # Colab 노트북
-├── reports/              # 리포트 출력 폴더 (자동 생성)
+├── test_cases/
+│   └── eligibility_cases.csv  # 테스트 케이스 표 (한 행 = 테스트 하나)
+├── templates/
+│   └── report_redesign.md     # 5교시 리포트 개선안 양식
+├── notebooks/                 # Colab 노트북 (lab_helpers.py는 노트북 도우미)
+├── src/mlqa/                  # 서비스 코드 (읽거나 고칠 필요 없음)
+├── tests/                     # 개발자가 만든 자동 테스트
+├── exercises/                 # [심화·선택] 코드로 테스트를 써 보고 싶은 사람용 빈칸 과제
+├── reports/                   # 리포트 출력 폴더 (자동 생성)
 ├── requirements.txt
-└── pyproject.toml        # pytest 설정 (src 경로)
+└── pyproject.toml
 ```
 
-## 교시별 과제
+## [심화·선택] 코드로 해 보기
 
-| 교시 | 주제 | 할 일 |
-| --- | --- | --- |
-| 1 | unittest | `exercises/test_exercise1_unittest.py`의 빈칸을 채워 `tests/`로 옮긴다 (거주 기간 부족, 취업 상태, 잘못된 나이) |
-| 2 | PyTest | `exercises/test_exercise2_boundaries.py`의 빈칸에 나이의 **3값 경계값** 기대 결과를 채워 `tests/`로 옮긴다. 커버리지를 측정해 본다 |
-| 3 | ML 코드 테스트 | `exercises/test_exercise3_ml_checks.py`의 빈칸을 **손으로 계산해** 채운다. ① 결측 대체값은 학습 데이터로만 계산되는가 ② 정밀도가 손 계산과 같은가 |
-| 4 | 교차 검증 | [02_cross_validation.ipynb](https://colab.research.google.com/github/leejaehee1/ai-quality-lab/blob/main/day2/notebooks/02_cross_validation.ipynb)로 분할의 흔들림, StratifiedKFold, 평균 ± 표준편차를 확인한다 |
-| 5 | 성능 리포트 | 리포트를 생성하고 **숫자가 서로 맞는지** 검토한다. 이상한 점을 메모한다 |
-| 6 | CI | 추가한 테스트를 커밋해 Actions에서 **실패**하는 것을 확인한다. 실행 요약에서 리포트를 본다 |
-| 7 | 버그 리포트 | 찾은 결함마다 **Issues → New issue → 버그 리포트** 양식으로 이슈를 등록한다. 결함을 고치는 PR을 만들고 본문에 `Fixes #이슈번호`를 적는다. CI가 통과하면 병합해 이슈가 자동으로 닫히는지 확인한다 |
-| 8 | 발표 | 찾은 결함, 추가한 테스트, CI 결과, 이슈 링크를 발표한다 |
+Python에 익숙하다면 `exercises/`의 빈칸 과제(unittest, 경계값 parametrize, ML 검사)를 채워 `tests/`로 옮겨 볼 수 있습니다. 빈칸(`___`)을 모두 채운 뒤 옮기세요. 수업 필수 과정은 아닙니다.
 
-> 💡 **빈칸 채우기 과제**: `exercises/`의 파일은 빈칸(`___`)을 **모두 채운 뒤** `tests/`로 옮기세요. 빈칸이 남은 채로 옮기면 `NameError`가 나고 CI 전체가 실패합니다. 코딩이 처음이라면 짝과 함께, 막히면 강사에게 힌트를 요청하세요.
-
-> ⚠️ **PR을 만들 때 base repository를 꼭 확인하세요.** fork한 저장소에서 PR을 만들면 받는 쪽이 원본 저장소(`leejaehee1/ai-quality-lab`)로 기본 선택됩니다. 반드시 **내 fork의 `main`**으로 바꾼 뒤 PR을 만드세요. 원본으로 보내면 다른 수강생에게 답이 공개됩니다.
-
-## 직접 실행하기
+## (개발자용) 직접 실행하기
 
 ```bash
 cd day2
@@ -66,6 +70,8 @@ PYTHONPATH=src python -m mlqa.report                    # 성능 리포트 → r
 1. 라이브러리 설치
 2. 테스트 + 커버리지 (품질 게이트: 교차 검증 재현율 0.90 이상, 잡음 강건성)
 3. 성능 리포트 생성 → 실행 요약(Summary)에 표시, Artifacts로 보관
+
+저장소 관리자는 Actions 탭 → day2-ml-quality → **Run workflow**에서 품질 게이트 기준값을 입력해 코드 수정 없이 다시 실행할 수 있습니다 (예: 재현율 기준 0.96 → ❌, 0.90 → ✅).
 
 ## 품질 기준 (품질 게이트)
 

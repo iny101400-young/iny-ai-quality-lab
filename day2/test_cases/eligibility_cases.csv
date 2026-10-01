@@ -1,0 +1,5 @@
+case_id,age,months_resident,employed,expected,reason
+TC-01,25,12,아니오,대상,모든 조건 충족
+TC-02,40,12,아니오,비대상,나이 초과
+TC-03,25,3,아니오,비대상,거주 기간 부족
+TC-04,25,12,예,비대상,취업 상태

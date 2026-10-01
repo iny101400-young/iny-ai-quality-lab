@@ -30,11 +30,12 @@
 
 ## 2일차 실습
 
-2일차는 이 저장소를 **fork**해서 진행합니다. 순서와 교시별 과제는 [2일차 안내](day2/README.md)를 보세요.
+2일차는 **코드를 고치지 않고** 노트북의 입력 칸과 버튼으로 진행합니다. 교시별 활동은 [2일차 안내](day2/README.md)를 보세요.
+7교시 버그 리포트는 [ai-quality-bug-bash](https://github.com/leejaehee1/ai-quality-bug-bash) 저장소에 이슈로 등록합니다 (GitHub 계정 필요).
 
 | 교시 | 주제 | Colab |
 | --- | --- | --- |
-| 1~3, 5교시 | unittest·PyTest·커버리지·성능 리포트 실행 | [열기](https://colab.research.google.com/github/leejaehee1/ai-quality-lab/blob/main/day2/notebooks/01_testing_in_colab.ipynb) |
+| 1~3, 5교시 | 자동 테스트 실행, 테스트 케이스 표, 손 계산 비교, 품질 게이트, 성능 리포트 | [열기](https://colab.research.google.com/github/leejaehee1/ai-quality-lab/blob/main/day2/notebooks/01_testing_in_colab.ipynb) |
 | 4교시 | 교차 검증 | [열기](https://colab.research.google.com/github/leejaehee1/ai-quality-lab/blob/main/day2/notebooks/02_cross_validation.ipynb) |
 
 ## 폴더 구성
@@ -44,7 +45,7 @@ ai-quality-lab/
 ├── day1/
 │   ├── notebooks/        # 1일차 Colab 노트북 5개
 │   └── templates/        # 데이터 품질 검수 기준서 양식
-├── day2/                 # 2일차 실습: mlqa 패키지, 테스트, 노트북
+├── day2/                 # 2일차 실습: 테스트 케이스 표, 노트북, mlqa 패키지, 테스트
 ├── .github/              # CI 워크플로(day2-ci.yml), 버그 리포트 이슈 양식
 ├── slides/               # 강의 슬라이드 PDF
 └── appendix/
